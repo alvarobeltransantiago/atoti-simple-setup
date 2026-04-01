@@ -9,13 +9,13 @@ import pandas as pd
 from pydantic import DirectoryPath, FilePath, HttpUrl
 
 from .config import Config
-from .opentelemetry import traced
+from .opentelemetry import span
 from .path import RESOURCES_DIRECTORY
 from .skeleton import Skeleton
 from .util import read_json, reverse_geocode
 
 
-@traced
+@span
 async def read_station_information(
     *,
     http_client: httpx.AsyncClient,
@@ -72,7 +72,7 @@ async def read_station_information(
     ).drop(columns=coordinates_column_names)
 
 
-@traced
+@span
 async def read_station_status(
     velib_data_base_path: HttpUrl | Path,
     /,
@@ -106,7 +106,7 @@ async def read_station_status(
     return pd.DataFrame(station_statuses)
 
 
-@traced
+@span
 async def load_tables(
     session: tt.Session,
     /,

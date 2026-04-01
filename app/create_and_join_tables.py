@@ -1,11 +1,11 @@
 import atoti as tt
 
-from .opentelemetry import traced
+from .opentelemetry import span
 from .skeleton import Skeleton
 from .util import column
 
 
-@traced
+@span
 def create_station_status_table(session: tt.Session, /) -> None:
     skeleton = Skeleton.tables.STATION_STATUS
     session.create_table(
@@ -22,7 +22,7 @@ def create_station_status_table(session: tt.Session, /) -> None:
     )
 
 
-@traced
+@span
 def create_station_information_table(session: tt.Session, /) -> None:
     skeleton = Skeleton.tables.STATION_INFORMATION
     session.create_table(
@@ -46,7 +46,7 @@ def create_station_information_table(session: tt.Session, /) -> None:
     )
 
 
-@traced
+@span
 def join_tables(session: tt.Session, /) -> None:
     skeleton = Skeleton.tables
     session.tables[skeleton.STATION_STATUS.name].join(
@@ -56,7 +56,7 @@ def join_tables(session: tt.Session, /) -> None:
     )
 
 
-@traced
+@span
 def create_and_join_tables(session: tt.Session, /) -> None:
     create_station_status_table(session)
     create_station_information_table(session)

@@ -12,7 +12,7 @@ from .config import Config
 from .create_and_join_tables import create_and_join_tables
 from .create_cubes import create_cubes
 from .load_tables import load_tables
-from .opentelemetry import traced
+from .opentelemetry import span
 
 
 def _get_session_config(config: Config, /) -> tt.SessionConfig:
@@ -32,7 +32,7 @@ def _get_session_config(config: Config, /) -> tt.SessionConfig:
     )
 
 
-@traced
+@span
 def _create_data_model(session: tt.Session, /) -> None:
     create_and_join_tables(session)
     create_cubes(session)
