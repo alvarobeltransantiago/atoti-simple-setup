@@ -9,7 +9,7 @@ TRACER: Final = trace.get_tracer(__name__)
 
 
 def traced[**P, R](func: Callable[P, R], /) -> Callable[P, R]:
-    """Thin wrapper around :meth:`opentelemetry.trace.Tracer.start_as_current_span`'s automatically using the decorated's function qualified name as the span name."""
+    """Thin wrapper around :meth:`opentelemetry.trace.Tracer.start_as_current_span` automatically using the decorated's function qualified name as the span name."""
     assert isfunction(func)
 
     if iscoroutinefunction(func):
