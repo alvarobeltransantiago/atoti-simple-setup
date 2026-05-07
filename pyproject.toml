@@ -1,82 +1,8 @@
-[dependency-groups]
-dev = [
-    "anyio",
-    "docker",
-    # Same bounds as `pandas` in `project.dependencies`.
-    "pandas-stubs>=2.2.3,<3.0.0.rc0",
-    "pytest",
-    "ruff",
-    "ty",
-]
-
 [project]
-name = "app"
+name = "mi_proyecto"
 version = "0.1.0"
-# Keep in sync with:
-# - .github/workflows/test.yml
-# - Dockerfile`'s `FROM` commands.
 requires-python = ">=3.12"
 dependencies = [
-    "atoti[jdbc,observability]",
-    "httpx",
-    "opentelemetry-exporter-otlp-proto-http",
-    "opentelemetry-instrumentation-httpx",
-    "opentelemetry-sdk",
-    "pandas>=2.2.3,<3.0.0.rc0",
-    "pydantic",
-    "pydantic-settings",
-    "typing-extensions",
+    "atoti",
+    "pandas>=2.2.3,<3.0.0",
 ]
-
-[tool.pytest]
-addopts = ["--doctest-modules"]
-anyio_mode = "auto"
-filterwarnings = ["error"]
-strict = true
-
-[tool.ruff.format]
-docstring-code-format = true
-
-[tool.ruff.lint]
-ignore = [
-    "COM812",  # Covered by the formatter.
-    "D100",
-    "D101",
-    "D102",
-    "D103",
-    "D104",
-    "D105",
-    "D106",
-    "D107",
-    "D203",
-    "D213",
-    "E501",
-    "E741",    # `l` is used for level (consistency with `h` for hierarchy and `m` for measure).
-    "EM102",   # Not worth the annoyance.
-    "ISC001",  # Covered by the formatter.
-    "PLC0414", # Redundant imports are used for re-exporting (See https://peps.python.org/pep-0484/#stub-files).
-    "S101",    # `assert` is useful when used correctly (https://realpython.com/python-assert-statement).
-    "TCH",     # Pydantic needs to resolve type annotations at runtime.
-    "TID252",
-    "TRY003",  # Not worth the annoyance.
-]
-select = ["ALL"]
-
-[tool.ruff.lint.flake8-import-conventions]
-banned-from = ["atoti", "pandas"]
-
-[tool.ruff.lint.flake8-import-conventions.aliases]
-atoti = "tt"
-pandas = "pd"
-
-[tool.ruff.lint.isort]
-combine-as-imports = true
-
-[tool.ty.terminal]
-error-on-warning = true
-
-[tool.uv]
-# Keep in sync with:
-# - .github/workflows/test.yml
-# - Dockerfile`'s `builder`.
-required-version = ">=0.11.2"
