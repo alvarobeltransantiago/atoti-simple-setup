@@ -6,7 +6,7 @@ from .load_tables import load_tables
 
 
 def main() -> None:
-    session = tt.Session.start()
+    session = tt.Session.start(tt.SessionConfig(port=9090))
     create_and_join_tables(session)
     create_cubes(session)
     load_tables(session)
