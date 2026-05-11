@@ -5,7 +5,7 @@ import pandas as pd
 
 RESOURCES_DIRECTORY = Path(__file__).parent / "__resources__"
 
-
+#Función para leer el csv donde tenemos los datos y cargarlos a un dataframe de pandas.
 def read_sensitivities() -> pd.DataFrame:
     sensitivities = pd.read_csv(
         RESOURCES_DIRECTORY / "sensitivities.csv",
@@ -14,7 +14,7 @@ def read_sensitivities() -> pd.DataFrame:
     sensitivities["AsOfDate"] = sensitivities["AsOfDate"].dt.date
     return sensitivities
 
-
+#Función para construir la tabla de calendario a partir del dataframe de pandas.
 def build_calendar(sensitivities: pd.DataFrame) -> pd.DataFrame:
     calendar = pd.DataFrame(
         {"AsOfDate": pd.to_datetime(sensitivities["AsOfDate"].unique())}
@@ -26,7 +26,7 @@ def build_calendar(sensitivities: pd.DataFrame) -> pd.DataFrame:
     calendar["AsOfDate"] = calendar["AsOfDate"].dt.date
     return calendar
 
-
+#Una vez tenemos los datos, los añadimos a las tablas de atoti.
 def load_tables(session: tt.Session) -> None:
     session.tables["Sensitivities"].load(tt.CsvLoad(RESOURCES_DIRECTORY / "sensitivities.csv"))
     session.tables["TradeInfo"].load(tt.CsvLoad(RESOURCES_DIRECTORY / "trade_info.csv"))

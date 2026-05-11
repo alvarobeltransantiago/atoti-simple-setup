@@ -1,7 +1,9 @@
 import atoti as tt
 
-
+#Función para crear las tablas y hacer los joins entre ellas.
 def create_and_join_tables(session: tt.Session) -> None:
+    
+    #Tabla Sensitivities
     sensitivities = session.create_table(
         "Sensitivities",
         keys={"TradeId", "AsOfDate", "RiskFactor"},
@@ -22,6 +24,7 @@ def create_and_join_tables(session: tt.Session) -> None:
         },
     )
 
+    #Tabla TradeInfo
     trade_info = session.create_table(
         "TradeInfo",
         keys={"TradeId"},
@@ -34,6 +37,7 @@ def create_and_join_tables(session: tt.Session) -> None:
         },
     )
 
+    #Tabla RiskFactors
     risk_factors = session.create_table(
         "RiskFactors",
         keys={"RiskFactor"},
@@ -45,6 +49,7 @@ def create_and_join_tables(session: tt.Session) -> None:
         },
     )
 
+    #Tabla Calendar (apoyo para crear la hierarchy de tiempo)
     calendar = session.create_table(
         "Calendar",
         keys={"AsOfDate"},
@@ -57,6 +62,7 @@ def create_and_join_tables(session: tt.Session) -> None:
         },
     )
 
+    #Joineamos todas las tablas a sensitivities. Esto nos permitirá tener toda la info en una sola tabla.
     sensitivities.join(trade_info)
     sensitivities.join(risk_factors)
     sensitivities.join(calendar)

@@ -1,13 +1,16 @@
 import atoti as tt
 
-
+#Función para crear el cubo.
 def create_cubes(session: tt.Session) -> None:
+
+    #Creamos el cubo
     cube = session.create_cube(
         session.tables["Sensitivities"],
         name="SensitivityCube",
         mode="manual",
     )
 
+    #Definimos las hiearchies y las measures. 
     h = cube.hierarchies
     l = cube.levels
     m = cube.measures
