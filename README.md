@@ -4,7 +4,7 @@ Proyecto basico de Atoti para arrancar un cubo desde codigo Python.
 
 ## Ejecutar
 
-Instala las dependencias y lanza:
+Instala las dependencias (atoti y pandas) y lanza:
 
 ```bash
 python -m mi_proyecto
